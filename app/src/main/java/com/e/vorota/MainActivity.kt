@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         bigText =  findViewById(R.id.bigText)
 
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        locationListener= Listener()
+        locationListener= Listener(context)
 
         onoffBtn.setOnClickListener{
 
@@ -46,10 +46,13 @@ class MainActivity : AppCompatActivity() {
     private fun checkEnabled() {
         tvEnabledGPS.setText("ToDo checkEnabled")
     }
-}
 
-class Listener: LocationListener {
-    override fun onLocationChanged(location: Location) {
+    inner class Listener(context: Context): LocationListener {
+
+        override fun onLocationChanged(location: Location) {
+            bigText.text=location.longitude.toString() + "  " + location.latitude.toString()
+        }
     }
+
 }
 
